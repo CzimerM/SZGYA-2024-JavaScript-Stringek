@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function bont1(szoveg) { // csak egy kötőjelet kezel
+            let camel = szoveg
+            let p = camel.indexOf("-");
+            if (p > 0) camel = camel.slice(0,p) + camel.charAt(p+1).toUpperCase() + camel.slice(p + 2);
+            return camel;
+        }
+
+        function bont(szoveg) { //több kötőjel - Márk original
+            let p = camel.indexOf("-");
+            while (p > 0) {
+                camel = camel.slice(0,p) + camel.charAt(p+1).toUpperCase() + camel.slice(p + 2);
+                p = camel.indexOf("-");
+            }
+        }
+
+        function bont2(szoveg) { // univerzális hátul tesztelős
+            let camel = szoveg;
+           
+            let p;
+            do {
+                p = camel.indexOf("-");
+                if (p > 0) camel = camel.slice(0,p) + camel.charAt(p+1).toUpperCase() + camel.slice(p + 2);
+            } while (p > 0);
+            return camel;
+        }
+
+        function bont4(szoveg) { // split - map - Márk original
+            return szoveg.split("-").map((x, i) => i == 0 ? x : x[0].toUpperCase() + x.slice(1)).join("");
+        }
+
+        function bont_nem(sz) // js működés miatt nem lehetséges
+        {
+            let camel = "";
+            let t = sz.split("-");
+            for (let i = 0; i < t.length; i++)
+            {
+                t[i][0] = t[i][0].toUpperCase(); // ez itt nem csinál semmit
+                camel += t[i];
+            }
+            return camel;
+        }
+
+        function bont3(sz) { // for ciklus
+            let t = sz.split("-");            
+            let camel = t[0];
+            for (let i = 1; i < t.length; i++)
+            {
+                camel += t[i][0].toUpperCase() + t[i].slice(1);
+            }
+            return camel;
+        }
+
+        document.write(`${bont1("asd-asd-asd")} <br>`)
+        document.write(`${bont2("asd-asd-asd")} <br>`)
+        document.write(`${bont3("asd-asd-asd")} <br>`)
+        document.write(`${bont4("asd-asd-asd")} <br>`)
+
+        document.write(`${bont3("color")} <br>`)
+    </script>
+</body>
+</html>
